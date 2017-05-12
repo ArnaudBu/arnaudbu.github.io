@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Mémoire d’actuariat</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Arnaud BUZZI</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="glyphicon glyphicon glyphicon glyphicon-home"></span>
+     
+    Accueil
+  </a>
+</li>
+<li>
+  <a href="articles.html">
+    <span class="glyphicon glyphicon glyphicon glyphicon-pencil"></span>
+     
+    Articles
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-user"></span>
+     
+    Contact
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.linkedin.com/in/arnaud-buzzi-03a42910b">
+        <span class="fa fa-linkedin"></span>
+         
+        Linkedin
+      </a>
+    </li>
+    <li>
+      <a href="mailto:arnaud.buzzi@sia-partners.com">
+        <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+         
+        Mail
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Mémoire d’actuariat</h1>
+<h4 class="date"><em>vendredi 12 mai 2017</em></h4>
+
+</div>
+
+
+
+<div style="font-size: 200%;color: rgb(33, 123, 114);">Approximation du bilan &eacute;conomique sous Solvabilit&eacute; II via des m&eacute;thodes d&apos;apprentissage automatique et application &agrave; l&apos;ORSA</div>
+<article class='article'>
+	<div class='border'>
+		<div class='jarakgrid'>
+			<h2>Introduction</h2>
+			<div class='hr'></div>
+				<p>Pour le premier article publi&eacute; sur ce site, il me paraissait opportun de choisir mon m&eacute;moire d'actuariat, qui est &agrave; ce jour le travail auquel j'ai consacr&eacute; le plus de temps. Celui-ci s'interroge sur l'utilisation de l'apprentissage automatique en assurance vie, dans le cadre de la manipulation de valeurs r&eacute;glementaires dont le calcul est compliqu&eacute;.</p>
+				<p>Cette page est un r&eacute;sum&eacute; du m&eacute;moire, avec pour objectif de transmettre son principal message, &agrave; savoir qu'il faut conserver proprement <strong>toutes</strong> les donn&eacute;es des simulations effectu&eacute;, qui portent en elles une information tr&egrave;s riche.</p>
+				<div class='hr'></div>
+				<p>Lien vers le PDF du m&eacute;moire : <a href="doc/pdf/memoire.pdf">Approximation du bilan &eacute;conomique sous Solvabilit&eacute; II via des m&eacute;thodes d&apos;apprentissage automatique et application &agrave; l&apos;ORSA</a>
+		</p>
+	</div>
+</article>
+
+<div id="orsa-et-apprentissage-automatique" class="section level1">
+<h1><span class="header-section-number">1</span> ORSA et Apprentissage automatique</h1>
+<p>L’Own Risk Solvency Assesment (ORSA) est un outil interne d’analyse stratégique et d’aide à la décision, dont l’objectif est d’évaluer les risques spécifiques de l’entreprise qui le mène, de manière prospective et continue, sur un horizon de temps au moins égal au plan d’activité. Deux évaluations particulières, auxquelles s’intéresse ce mémoire, sont réalisées dans ce processus :</p>
+<ol style="list-style-type: decimal">
+<li>L’évaluation du besoin global de solvabilité de l’entreprise, appelé ORSA annuel dans l’étude. L’entreprise définit son profil propre de risque, liste les moyens à mettre en oeuvre pour y faire face et vérifie que ses risques sont maîtrisés pour différents scénarios.</li>
+<li>L’évaluation du respect permanent des obligations réglementaires concernant la couverture du Solvency Capital Requirement (SCR), du Minimum Capital Requirement (MCR) et le respect des exigences concernant le calcul des provisions techniques, appelé ORSA permanent dans l’étude.</li>
+</ol>
+<p>Mener à bien ces deux études nécessite de réaliser de nombreux calculs relatifs au bilan d’une compagnie d’assurance, du fait de l’obligation d’évaluer plusieurs fois des grandeurs comme le Best Estimate of Liabilities (BEL) ou le SCR. Sachant que la durée du processus permettant d’obtenir ces valeurs se mesure généralement en jours, il est difficile de réaliser un ORSA de manière exhaustive et d’effectuer un grand nombre de tests. Une solution innovante à cette problématique est l’apprentissage automatique. À partir de données de simulations déjà réalisées, il est possible de calibrer un modèle capable de prédire la valeur du BEL, du SCR, ou du ratio de solvabilité d’une entreprise à partir des variables d’entrée du modèle Asset Liability Management (ALM). Ce procédé permet d’éliminer la contrainte de temps induite par les simulations requises, mais au prix d’une approximation, généralement d’autant plus grande que le nombre de données disponibles est faible. Ce mémoire s’interroge sur la possibilité d’utiliser des algorithmes d’apprentissage automatique pour estimer les trois grandeurs évoquées et d’appliquer les résultats aux deux points de l’ORSA mentionnés.</p>
+</div>
+<div id="modelisation-alm" class="section level1">
+<h1><span class="header-section-number">2</span> Modélisation ALM</h1>
+<p>Afin de mettre en oeuvre la démarche suggérée, une modélisation ALM initiale est nécessaire. Étant donné que c’est en assurance vie que les calculs liés au bilan d’un assureur sont les plus complexes, à cause des relations qui existent entre actif et passif, l’étude s’intéressera au cas d’un fonds en euros. Bien que des hypothèses fortes et parfois trop simplificatrices d’un point de vue métier soient prises, la modélisation ALM développée présente un niveau de complexité suffisant pour la considérer pertinente par rapport aux standards actuels du marché. Le SCR est calculé à l’aide de la formule standard. Parmi les limitations les plus significatives se trouvent l’absence d’ajustement dans la formule standard et le rassemblement en une unique obligation de l’ensemble du portefeuille obligataire.</p>
+
+<figure style="width: 41.2%; float: left">
+  <img src="doc/images/memoire/bilan_comptable.png" alt="Bilan Comptable"  >
+    <center><figcaption>(a) Bilan comptable</figcaption></center>
+</figure>
+<figure style="width:53.8%;float: right">
+  <img src="doc/images/memoire/bilan_eco_BOF.png" alt="Bilan &eacute;conomique" >
+  <center><figcaption>(b) Bilan &eacute;conomique</figcaption></center>
+</figure>
+<center><figcaption style="clear:both; padding-top: 15px; margin-bottom: 20px">Figure 1 - Mod&eacute;lisation du bilan</figcaption></center>
+
+<p>La figure 1 présente les bilans comptable et économique associés au fonds en euros étudié. Ces bilans sont simplifiés, et nombre d’éléments pourtant importants, comme la Provision pour Risque d’Exigibilité et la Risk Margin (RM), sont omis. La formule standard est quant à elle implémentée en agrégeant les sous-modules de risques présentés par la figure 2.</p>
+
+<figure style="width: 100%; float: left">
+  <center><img src="doc/images/memoire/SCR.png" alt="Formule standard"  ></center>
+    <center style="padding-top: 15px; margin-bottom: 20px"><figcaption>Figure 2 - Agr&eacute;gation des diff&eacute;rents sous-modules de SCR dans le cadre &eacute;tudi&eacute;</figcaption></center>
+</figure>
+
+<p>Les entrées du modèle ALM sont alors générées aléatoirement, avant que ne leur soit appliqué ledit modèle, pour constituer une base de données regroupant 11 201 observations du BEL, du SCR et du ratio de solvabilité du fonds étudié.</p>
+</div>
+<div id="apprentissage-automatique-supervise-et-comparaison-de-modeles" class="section level1">
+<h1><span class="header-section-number">3</span> Apprentissage automatique supervisé et comparaison de modèles</h1>
+<p>L’apprentissage automatique supervisé consiste à utiliser un ensemble d’observations, pour lesquelles les entrées et les sorties d’un modèle sous-jacent sont connues, afin de construire une fonction de prédiction des sorties au regard des entrées. La fonction de prédiction est calibrée en choisissant parmi les éléments d’un sous-espace fonctionnel caractérisé par le type d’algorithme mis en oeuvre. Plusieurs classes d’algorithmes sont alors testées :</p>
+<ul>
+<li>Les modèles linéaires gaussiens, qui supposent une fonction de prédiction linéaire par rapport à chacune des variables.</li>
+<li>Les réseaux de neurones, inspirés du fonctionnement des neurones biologiques.</li>
+<li>Les Séparateurs à Vaste Marge, qui reposent sur une séparation optimale des variables.</li>
+<li>Les algorithmes CART, qui supposent que la fonction de prédiction est un arbre de décision binaire.</li>
+<li>Les forêts aléatoires et le bagging, agrégations de plusieurs arbres CART indépendants.</li>
+<li>Le tree boosting, qui est aussi une agrégation d’arbres, mais interdépendants, à travers sont implémentation la plus récente : XGBoost.</li>
+</ul>
+<p>Afin de comparer les capacités prédictives des modèles, la base de données est scindée en deux : 80% des observations serviront à calibrer les modèles, et les 20% restantes serviront à les évaluer. Les termes apprentissage et test seront respectivement employés pour les désigner.</p>
+
+<figure style="width: 32%; float: left">
+  <img src="doc/images/memoire/modelCompBEPercent-1.png" alt="Comparaison sur BE"  >
+    <center><figcaption>(a) Pour le BEL</figcaption></center>
+</figure>
+<figure style="width:32%;float: left">
+  <img src="doc/images/memoire/modelCompSCRPercent-1.png" alt="Comparaison sur SCR" >
+  <center><figcaption>(b) Pour le SCR</figcaption></center>
+</figure>
+<figure style="width:32%;float: left">
+  <img src="doc/images/memoire/modelCompRatioPercent-1.png" alt="Comparaison sur Ratio" >
+  <center><figcaption>(c) Pour le ratio de solvabilit&eacute;</figcaption></center>
+</figure>
+<center><figcaption style="clear:both; padding-top: 15px; margin-bottom: 20px">Figure 3 - Comparaison de mod&egrave;les</figcaption></center>
+
+<p>La figure 3 compare les résultats de chaque algorithme en fournissant l’erreur en pourcentage sur chacune des observations de la base de test pour les trois grandeurs d’intérêt. Dans tous les cas, XGBoost est le modèle le plus performant.</p>
+</div>
+<div id="xgboost" class="section level1">
+<h1><span class="header-section-number">4</span> XGBoost</h1>
+<p>Le tree boosting construit une fonction de prédiction sous la forme d’un ensemble de modèles prédictifs peu complexes, les arbres de décisions. Le modèle est construit de façon incrémentale, puisque chaque arbre tient compte des arbres précédemment introduits, dans le but de minimiser l’erreur globale. Le modèle fournit d’excellents résultats, dont les erreurs moyennes absolues et en pourcentage, sur les bases d’apprentissage et de test, sont données par le tableau ci-dessous.</p>
+
+<div style="overflow-x:auto;">
+
+<table>
+<colgroup>
+<col width="6%" />
+<col width="16%" />
+<col width="17%" />
+<col width="16%" />
+<col width="21%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Ordre de grandeur</th>
+<th><span class="math inline">\(\epsilon^{train}\)</span></th>
+<th><span class="math inline">\(\epsilon^{test}\)</span></th>
+<th><span class="math inline">\(\epsilon^{train}_{\%}\)</span></th>
+<th><span class="math inline">\(\epsilon^{test}_{\%}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BEL</td>
+<td>98,91</td>
+<td>0,09</td>
+<td>0,52</td>
+<td>0,09%</td>
+<td>0,53%</td>
+</tr>
+<tr class="even">
+<td>SCR</td>
+<td>8,65</td>
+<td>0,17</td>
+<td>0,67</td>
+<td>2,19%</td>
+<td>8,31%</td>
+</tr>
+<tr class="odd">
+<td>Ratio</td>
+<td>2,60</td>
+<td>0,06</td>
+<td>0,19</td>
+<td>1,96%</td>
+<td>8,51%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<p>Les erreurs sur la base d’apprentissage sont très faibles, ce qui prouve que le modèle s’adapte très bien aux données. Les résultats obtenus sur la base de test montrent des erreurs absolues et relatives suffisamment basses pour attester des capacités prédictives du modèle dans le cas étudié. Ces bons résultats sont confirmés graphiquement par la figure 4, qui trace pour chacune des trois grandeurs d’intérêt les valeurs prédites par le modèle sur tous les éléments de la base de test en fonction des valeurs observées.</p>
+
+<figure style="width: 45%; float: left">
+  <img src="doc/images/memoire/testAdeqResidusxgBE-1.png" alt="R&eacute;sidus sur BE"  >
+    <center><figcaption>(a) Pour le BEL</figcaption></center>
+</figure>
+<figure style="width:45%;float: left">
+  <img src="doc/images/memoire/testAdeqResidusxgSCR-1.png" alt="R&eacute;sidus sur SCR" >
+  <center><figcaption>(b) Pour le SCR</figcaption></center>
+</figure>
+<figure style="width:45%;float: left">
+  <img src="doc/images/memoire/testAdeqResidusxgRatio-1.png" alt="R&eacute;sidus sur Ratio" >
+  <center><figcaption>(c) Pour le ratio de solvabilit&eacute;</figcaption></center>
+</figure>
+<center><figcaption style="clear:both; padding-top: 15px; margin-bottom: 20px">Figure 4 - R&eacute;sultats du mod&egrave;le</figcaption></center>
+
+<p>Une autre grande qualité du modèle est qu’il ne nécessite pas énormément de données pour fournir de bons résultats, en atteste la figure 5, qui présente l’évolution de l’erreur moyenne commise sur la base de test en fonction de la proportion de données utilisée. Il apparaît qu’un quart des données suffit déjà à calibrer correctement le modèle XGBoost dans le contexte de l’étude.</p>
+
+<center><figure style="width: 50%;">
+  <center><img src="doc/images/memoire/nbDonneesCrossValAll-1.png" alt="Nombre de donn&eacute;es"  ></center>
+    <center style="padding-top: 15px; margin-bottom: 20px"><figcaption>Figure 5 - R&eacute;sultats obtenus en fonction du nombre des donn&eacute;es</figcaption></center>
+</figure></center>
+
+</div>
+<div id="possibilite-dutilisation-du-modele-final" class="section level1">
+<h1><span class="header-section-number">5</span> Possibilité d’utilisation du modèle final</h1>
+<p>Le modèle finalement calibré peut être utilisé afin de compléter l’ORSA annuel et l’ORSA permanent, en utilisant les possibilités qu’il offre pour générer instantanément plusieurs centaines de milliers de scénarios stochastiques.</p>
+
+<figure style="width: 48%; float: left">
+  <img src="doc/images/memoire/ORSARatio-1.png" alt="Orsa ponctuel"  >
+    <center><figcaption>(a) ORSA ponctuel</figcaption></center>
+</figure>
+<figure style="width:48%;float: right">
+  <img src="doc/images/memoire/scenariosRatioClassifRatio-1.png" alt="Orsa permanent" >
+  <center><figcaption>(b) ORSA permanent</figcaption></center>
+</figure>
+<center><figcaption style="clear:both; padding-top: 15px; margin-bottom: 20px">Figure 6 - Utilisations du mod&egrave;le</figcaption></center>
+
+<p>La figure 6a, qui compare les estimations, pour le ratio, du modèle ALM et de la prédiction par apprentissage automatique pour trois scénarios différents sur cinq années de projection, montre qu’il n’est pas possible de suppléer purement et simplement le modèle ALM sur un faible nombre de points. Le modèle par apprentissage automatique a en effet du mal à coller à la courbe ALM. En revanche, il est possible, en passant par la génération d’un grand nombre de scénarios pour les entrées qui alimenteront le modèle calibré, de construire une analyse de sensibilités, comme sur la figure 6b. Cette dernière montre la variation de chaque variable d’entrée après 1 an par rapport à sa valeur initiale en fonction du ratio de solvabilité, et pousse ainsi l’analyse dans des zones inaccessibles auparavant. Cette figure permet par exemple de se rendre compte que les taux de chargement appliqués ou les taux de frais de prestation n’influent pas outre mesure sur la valeur du ratio de solvabilité, si celui-ci se situe aux environs de 2,4.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1><span class="header-section-number">6</span> Conclusion</h1>
+<p>Les méthodes d’apprentissage automatique apportent un complément intéressant à l’ORSA, et ce pour un nombre de données relativement faible. De cette étude a ainsi émergé la conviction que les assureurs devraient investir dans les technologies qui leur permettraient de faire tourner en continu leurs modèles ALM pour obtenir une base de données permettant l’application de la méthodologie présentée, ou a minima mettre en place un processus de conservation des résultats des simulations ALM menées, afin d’exploiter par la suite ces précieuses informations.</p>
+</div>
+
+<center><div id="foot">© 2017 Blog d'Arnaud Buzzi</div></center>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
