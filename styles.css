@@ -4,6 +4,10 @@ body {
   text-align: justify;
 }
 
+#TOC {
+  text-align: left;
+}
+
 .navbar-header {
   display: none;
 }
@@ -31,6 +35,10 @@ tr:hover {background-color: #f5f5f5}
 }
 
 .section h1 {
+  color: rgb(33, 123, 114);
+}
+
+.section h3 {
   color: rgb(33, 123, 114);
 }
 
