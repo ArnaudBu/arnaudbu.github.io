@@ -3,9 +3,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.navbar-header {
-  display: none;
-}
+
 
 #intro{
   color: rgb(33, 123, 114);
