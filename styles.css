@@ -5,6 +5,14 @@ body {
   font-size: 17px;
 }
 
+.navbar-brand {
+	display: none;
+}
+
+#navbar {
+	font-size: 17px;
+}
+
 #TOC {
   text-align: left;
 }
