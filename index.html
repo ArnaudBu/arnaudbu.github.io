@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
@@ -33,10 +33,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -238,6 +240,21 @@ $(document).ready(function () {
 
 <div id = "intro">
 Bienvenue sur ce blog, d&eacute;di&eacute; aux statistiques, &agrave; la Data Science, &agrave; l&apos;actuariat et &agrave; la recherche du sens de la vie gr&acirc;ce &agrave; la combinaison ultime de ces trois disciplines.
+</div>
+<div class="showcase">
+  <div class="desc">
+    <p style="margin-left:0;margin-top:0;position:absolute;"><i>15 mai 2018</i></p>
+    <h2>Outils</h2>
+    <p><b>Impl&eacute;mentation d'un g&eacute;n&eacute;rateur de sc&eacute;narios &eacute;conomiques</b></p>
+    <p><i>esg2</i>: un mod&egrave;le G2++ pour une librairie R de GSE</p>
+  </div>
+  <div class="thumbnail" id = "gse">
+        <div id="background"><table style="height: 100%"><tr><td valign="middle"></td></tr></table></div>
+    <div class="thumbnail__overlay">
+      <a class="btn2" href="esg.html">Lire l'article complet</a>
+      <a href="esg.html" class="hida"></a>
+    </div>
+  </div>
 </div>
 <div class="showcase showcase--inverted">
   <div class="desc">

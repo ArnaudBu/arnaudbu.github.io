@@ -106,6 +106,9 @@ h1.title {
   background-image: url(../doc/images/disneypres.jpg);
 }
 
+#gse {
+  background-image: url(../doc/images/esgpres.png);
+}
 
 .desc {
   position: absolute;
