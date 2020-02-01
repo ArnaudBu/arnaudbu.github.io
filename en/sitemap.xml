@@ -3,44 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://arnaudbu.github.com/categories/</loc>
+    <loc>https://arnaudbu.github.io/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://arnaudbu.github.com/fr/categories/"
+                href="https://arnaudbu.github.io/fr/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://arnaudbu.github.com/categories/"
+                href="https://arnaudbu.github.io/categories/"
                 />
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/</loc>
+    <loc>https://arnaudbu.github.io/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://arnaudbu.github.com/fr/"
+                href="https://arnaudbu.github.io/fr/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://arnaudbu.github.com/"
+                href="https://arnaudbu.github.io/"
                 />
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/tags/</loc>
+    <loc>https://arnaudbu.github.io/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://arnaudbu.github.com/fr/tags/"
+                href="https://arnaudbu.github.io/fr/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://arnaudbu.github.com/tags/"
+                href="https://arnaudbu.github.io/tags/"
                 />
   </url>
   

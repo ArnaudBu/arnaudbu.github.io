@@ -3,162 +3,162 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/categories/actuariat/</loc>
+    <loc>https://arnaudbu.github.io/fr/categories/actuariat/</loc>
     <lastmod>2018-05-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/alm/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/alm/</loc>
     <lastmod>2018-05-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/assurance-vie/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/assurance-vie/</loc>
     <lastmod>2018-05-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/categories/</loc>
-    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://arnaudbu.github.com/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://arnaudbu.github.com/fr/categories/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://arnaudbu.github.com/fr/tags/esg/</loc>
-    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://arnaudbu.github.com/fr/post/esg/</loc>
-    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://arnaudbu.github.com/fr/tags/librairie/</loc>
-    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://arnaudbu.github.com/fr/categories/outil/</loc>
-    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://arnaudbu.github.com/fr/post/</loc>
-    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://arnaudbu.github.com/fr/</loc>
+    <loc>https://arnaudbu.github.io/fr/categories/</loc>
     <lastmod>2018-05-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://arnaudbu.github.com/"
+                href="https://arnaudbu.github.io/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://arnaudbu.github.com/fr/"
+                href="https://arnaudbu.github.io/fr/categories/"
                 />
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/esg/</loc>
+    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/fr/post/esg/</loc>
+    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/fr/tags/librairie/</loc>
+    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/fr/categories/outil/</loc>
+    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/fr/post/</loc>
+    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/fr/</loc>
     <lastmod>2018-05-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://arnaudbu.github.com/tags/"
+                href="https://arnaudbu.github.io/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://arnaudbu.github.com/fr/tags/"
+                href="https://arnaudbu.github.io/fr/"
                 />
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/post/disney/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/</loc>
+    <lastmod>2018-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://arnaudbu.github.io/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://arnaudbu.github.io/fr/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/fr/post/disney/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/data-analytics/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/data-analytics/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/data-mining/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/data-mining/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/data-visualization/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/data-visualization/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/data.table/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/data.table/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/plotly/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/plotly/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/shiny/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/shiny/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/categories/%C3%A9tudes-r%C3%A9cr%C3%A9atives/</loc>
+    <loc>https://arnaudbu.github.io/fr/categories/%C3%A9tudes-r%C3%A9cr%C3%A9atives/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/post/courbeeiopa/</loc>
+    <loc>https://arnaudbu.github.io/fr/post/courbeeiopa/</loc>
     <lastmod>2017-05-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/categories/opinions/</loc>
+    <loc>https://arnaudbu.github.io/fr/categories/opinions/</loc>
     <lastmod>2017-05-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/taux/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/taux/</loc>
     <lastmod>2017-05-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/post/memoire/</loc>
+    <loc>https://arnaudbu.github.io/fr/post/memoire/</loc>
     <lastmod>2017-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/machine-learning/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/machine-learning/</loc>
     <lastmod>2017-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/orsa/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/orsa/</loc>
     <lastmod>2017-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://arnaudbu.github.com/fr/tags/solvabilit%C3%A9-ii/</loc>
+    <loc>https://arnaudbu.github.io/fr/tags/solvabilit%C3%A9-ii/</loc>
     <lastmod>2017-05-12T00:00:00+00:00</lastmod>
   </url>
   

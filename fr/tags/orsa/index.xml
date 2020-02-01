@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ORSA on Statistiques, Actuariat et Philosophie</title>
-    <link>https://arnaudbu.github.com/fr/tags/orsa/</link>
+    <link>https://arnaudbu.github.io/fr/tags/orsa/</link>
     <description>Recent content in ORSA on Statistiques, Actuariat et Philosophie</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 12 May 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://arnaudbu.github.com/fr/tags/orsa/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://arnaudbu.github.io/fr/tags/orsa/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Approximation du bilan économique sous Solvabilité II via des méthodes d&#39;apprentissage automatique et application à l&#39;ORSA</title>
-      <link>https://arnaudbu.github.com/fr/post/memoire/</link>
+      <link>https://arnaudbu.github.io/fr/post/memoire/</link>
       <pubDate>Fri, 12 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://arnaudbu.github.com/fr/post/memoire/</guid>
+      <guid>https://arnaudbu.github.io/fr/post/memoire/</guid>
       <description>L&#39;ORSA, élément central du second pilier de Solvabilité II, nécessite la mise en œuvre de lourds processus de calcul qui laissent souvent trop peu de temps à l&#39;analyse, en particulier en assurance vie. À ce titre, la réglementation laisse une grande souplesse dans le choix des méthodes, à condition d&#39;être en mesure de justifier leur utilisation, ce qui laisserait la possibilité d&#39;utiliser des méthodes issues de l&#39;apprentissage automatique comme complément pertinent à ce processus.</description>
     </item>
     

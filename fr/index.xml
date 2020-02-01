@@ -2,47 +2,47 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Statistiques, Actuariat et Philosophie</title>
-    <link>https://arnaudbu.github.com/fr/</link>
+    <link>https://arnaudbu.github.io/fr/</link>
     <description>Recent content on Statistiques, Actuariat et Philosophie</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 15 May 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://arnaudbu.github.com/fr/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://arnaudbu.github.io/fr/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Implémentation d&#39;un générateur de scénarios économiques</title>
-      <link>https://arnaudbu.github.com/fr/post/esg/</link>
+      <link>https://arnaudbu.github.io/fr/post/esg/</link>
       <pubDate>Tue, 15 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://arnaudbu.github.com/fr/post/esg/</guid>
+      <guid>https://arnaudbu.github.io/fr/post/esg/</guid>
       <description>ESG2: un modèle G2++ pour une librairie R de GSE.</description>
     </item>
     
     <item>
       <title>Attente à Disneyland Paris</title>
-      <link>https://arnaudbu.github.com/fr/post/disney/</link>
+      <link>https://arnaudbu.github.io/fr/post/disney/</link>
       <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://arnaudbu.github.com/fr/post/disney/</guid>
+      <guid>https://arnaudbu.github.io/fr/post/disney/</guid>
       <description>Voyons ensemble quelles attractions sont les plus populaires à Disneyland Paris en étudiant les temps d&amp;rsquo;attentes observés sur chacune.</description>
     </item>
     
     <item>
       <title>Courbe des taux &amp; Cohérence</title>
-      <link>https://arnaudbu.github.com/fr/post/courbeeiopa/</link>
+      <link>https://arnaudbu.github.io/fr/post/courbeeiopa/</link>
       <pubDate>Sun, 21 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://arnaudbu.github.com/fr/post/courbeeiopa/</guid>
+      <guid>https://arnaudbu.github.io/fr/post/courbeeiopa/</guid>
       <description>La courbe des taux est un élément fondamental de l&#39;évaluation des engagements en assurance. Pourtant, l&#39;emploi de cette courbe n&#39;est pas aussi évident que son utilisation abusive pourrait le laisser penser. Ainsi, l&#39;approche induite par son utilisation peut parfois être en désaccord avec une approche prudente de l&#39;évaluation des risques d&#39;un assureur. Pourquoi? Voyons cela ensemble!</description>
     </item>
     
     <item>
       <title>Approximation du bilan économique sous Solvabilité II via des méthodes d&#39;apprentissage automatique et application à l&#39;ORSA</title>
-      <link>https://arnaudbu.github.com/fr/post/memoire/</link>
+      <link>https://arnaudbu.github.io/fr/post/memoire/</link>
       <pubDate>Fri, 12 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://arnaudbu.github.com/fr/post/memoire/</guid>
+      <guid>https://arnaudbu.github.io/fr/post/memoire/</guid>
       <description>L&#39;ORSA, élément central du second pilier de Solvabilité II, nécessite la mise en œuvre de lourds processus de calcul qui laissent souvent trop peu de temps à l&#39;analyse, en particulier en assurance vie. À ce titre, la réglementation laisse une grande souplesse dans le choix des méthodes, à condition d&#39;être en mesure de justifier leur utilisation, ce qui laisserait la possibilité d&#39;utiliser des méthodes issues de l&#39;apprentissage automatique comme complément pertinent à ce processus.</description>
     </item>
     
