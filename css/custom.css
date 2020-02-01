@@ -1,0 +1,75 @@
+
+ html {
+  font-family: 'Catamaran', sans-serif;
+}
+
+/* About section */
+.sidebar-about h1 {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 1.3rem;
+}
+
+.sidebar-about p {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 1em;
+}
+
+.sidebar {
+  padding: 1rem 1rem;
+  text-align: center;
+}
+
+.post p {
+  text-align: justify;
+}
+
+.intro {
+  border-left: 5px solid rgb(33, 123, 114);
+  border-right: 5px solid rgb(33, 123, 114);
+  padding:1rem; 
+  background-color: #FBFAFA;
+  border-radius: 25px;
+}
+
+.post h2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.posts h1 {
+    font-size: 1.3rem;
+}
+
+article  {
+  font-size: 0.8rem;
+}
+
+math, .MathJax {
+    color: black;
+}
+
+.datatables {
+  font-size: small;
+}
+
+a.p-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    border: solid 1px rgb(33, 123, 114);
+    border-radius: 4px;
+    break-inside: avoid;
+    white-space: nowrap;
+}
+
+.global-title {
+  font-size: 2rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  border-top: 1px solid rgb(33, 123, 114);
+  border-bottom: 1px solid rgb(33, 123, 114);
+}
