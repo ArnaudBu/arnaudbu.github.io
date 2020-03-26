@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Assurance Vie on Stats, Actuarial Science &amp; Philosophy</title>
+    <link>/tags/assurance-vie/</link>
+    <description>Recent content in Assurance Vie on Stats, Actuarial Science &amp; Philosophy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 21 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/assurance-vie/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Courbe des taux &amp; Cohérence</title>
+      <link>/post/covidreco/</link>
+      <pubDate>Sun, 21 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/covidreco/</guid>
+      <description>TBD</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -4,6 +4,7 @@
   
   <url>
     <loc>https://arnaudbu.github.io/categories/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -17,7 +18,58 @@
   </url>
   
   <url>
+    <loc>https://arnaudbu.github.io/post/covidreco/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/tags/covid-19/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/tags/data-visualization/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://arnaudbu.github.io/fr/tags/data-visualization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://arnaudbu.github.io/tags/data-visualization/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/tags/news/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/post/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://arnaudbu.github.io/fr/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://arnaudbu.github.io/post/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://arnaudbu.github.io/tags/statistics/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://arnaudbu.github.io/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -31,7 +83,13 @@
   </url>
   
   <url>
+    <loc>https://arnaudbu.github.io/categories/study/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://arnaudbu.github.io/tags/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"

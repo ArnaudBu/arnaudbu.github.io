@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How to win a blackjack game? &middot; Stats, Actuarial Science &amp; Philosophy</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="/css/hyde.css">
+  <link type="text/css" rel="stylesheet" href="/css/custom.css">
+  <link type="text/css" rel="stylesheet" href="/lib/fontawesome-free-5.12.0-web/css/all.min.css">
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css">
+  <link type="text/css" rel="stylesheet" href="/css/codefolding.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+
+
+  
+  
+
+</head>
+
+  <body class="theme-base-0c ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <img src="/img/avatar.png" alt="Avatar"  style="border-radius: 50%;width: 60%;  display: block; margin-left: auto; margin-right: auto;max-width:120px">
+    <div class="sidebar-about">
+        
+        <a href="/en"><h1>Stats, Actuarial Science &amp; Philosophy</h1></a>
+        
+      <p class="lead">
+       Finding the true meaning of life through the ultimate combination of these three fields 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        
+        <li><a href="/fr">Version française ici</a></li>
+        
+        
+      </ul>
+    </nav>
+    <p>
+      <a href="https://github.com/arnaudbu/"> <span class='fab fa-github fa-2x'></span> </a><a href="https://ca.linkedin.com/in/arnaud-buzzi-03a42910b/en"> <span class='fab fa-linkedin fa-2x'></span> </a>
+    </p>
+    <p>© Arnaud Buzzi</p>
+  </div>
+</aside>
+    <main class="content container">
+    <div class="post">
+  <h1>How to win a blackjack game?</h1>
+  <time datetime=2017-09-02T00:00:00Z class="post-date">2017-09-02</time>
+  
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/dt-ext-scroller/css/scroller.dataTables.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-ext-scroller/js/dataTables.scroller.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+<script src="/rmarkdown-libs/plotly-binding/plotly.js"></script>
+<script src="/rmarkdown-libs/typedarray/typedarray.min.js"></script>
+<link href="/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/plotly-main/plotly-latest.min.js"></script>
+
+
+
+<div class="intro">
+<p>Avec les beaux jours, la fr&eacute;quentation &agrave; Disneyland Paris reprend. Mais point d'amusement sans file d'attente, et il n'est pas rare de devoir attendre plus d'une heure pour pouvoir profiter de son attraction favorite. Comment alors choisir le meilleur jour pour se rendre au parc? D&eacute;couvrons le gr&acirc;ce &agrave; une base de donn&eacute;es recensant les temps d'attente pour chaque attraction, relev&eacute;s toutes les cinq minutes.</p>
+				<p>Liens vers les donn&eacute;es utilis&eacute;es : 
+				<ul>
+          <li><a href="/img/disney/attractions.csv">Liste des attractions</a></li>
+          <li><a href="/img/disney/tempsHisto.csv">Historique des temps d'attente</a></li>
+				</ul>
+		</p>
+</div>
+
+<div id="simulations" class="section level2">
+<h2>Simulations</h2>
+</div>
+<div id="data-preparation" class="section level2">
+<h2>Data Preparation</h2>
+<pre class="r"><code>library(data.table)
+library(DT)
+library(ggplot2)
+library(plotly)
+library(viridis)
+
+# Utility functions: check if any following booleans are true
+follow_true &lt;- function(x){
+  sapply(1:length(x), function(y) any(x[y:length(x)]))
+}
+
+# Utility functions: check if all following values are  superior
+follow_sup &lt;- function(x){
+  if(length(x) == 1){
+    return(FALSE)
+  } else {
+   d = sapply(2:length(x), function(y) all(x[y:length(x)]&gt;x[(y-1):(length(x)-1)])) 
+   return(c(d, TRUE))
+  }
+}</code></pre>
+<pre class="r"><code># Check if dealer bust
+games[, bust_dealer := score_fin_dealer &gt; 21]
+
+# Check if the player bust
+games[, bust := ifelse(is.na(score_if_hit), F, score_if_hit &gt; 21)]
+
+# Check if win at current level
+games[, win := (score &gt; score_fin_dealer) | bust_dealer]
+
+# Check if draw at current level
+games[, draw := score == score_fin_dealer]
+
+# Check if win if hit
+games[, win_if_hit := score_if_hit &gt; score_fin_dealer &amp; !bust]
+games[is.na(win_if_hit), win_if_hit := FALSE]
+
+# Check if draw if hit
+games[, draw_if_hit := score_if_hit == score_fin_dealer &amp; !bust]
+games[is.na(draw_if_hit), draw_if_hit := FALSE]
+
+# Check if final win
+games[, final_win := follow_true(win | win_if_hit), by = game_id]
+
+# Check if final draw
+games[, final_draw := follow_true(draw | draw_if_hit), by = game_id]
+
+# Check if hard hand
+games[, hard := nbas == 0 | follow_sup(score), by = game_id]
+
+# Should hit if final win and not win
+games[, should_hit := final_win &amp; !win | (final_draw &amp; !(draw | win))]
+
+# Impossible to win if no final win or draw
+games[, impossible_to_win := !(final_win | final_draw)]
+
+# Stand if win or draw and not final win or bust
+games[, should_stand := win | (draw &amp; !final_win) |  bust]
+
+# Double if not win and next is a win
+games[, should_double:= win_if_hit &amp; !win]
+
+# Define decision based on best outcome
+games[, decision := ifelse(impossible_to_win,
+                       &quot;impossible&quot;,
+                       ifelse(should_double, 
+                              &quot;double&quot;, 
+                              ifelse(should_hit, 
+                                     &quot;hit&quot;, 
+                                     ifelse(should_stand, 
+                                            &quot;stand&quot;, 
+                                            NA
+                                            )
+                                     )
+                              )
+                       )
+  ]
+
+# Outcome
+games[, outcome := ifelse(final_win, 1, ifelse(final_draw, 0, -1))]
+
+# Clean the table
+games[, c(&quot;bust_dealer&quot;, &quot;bust&quot;, &quot;win&quot;, &quot;draw&quot;, &quot;win_if_hit&quot;, &quot;draw_if_hit&quot;,
+      &quot;should_hit&quot;, &quot;impossible_to_win&quot;, &quot;should_stand&quot;, &quot;should_double&quot;,
+      &quot;final_win&quot;, &quot;final_draw&quot;) 
+    := NULL]
+
+# Hi Lo Method computation
+games[, hilo := (nb_2_out + nb_3_out + nb_4_out + nb_5_out + nb_6_out) -
+            (nb_as_out + nb_10_out)]
+
+# Number of cards out
+games[, nb_cards_out := nb_as_out + nb_2_out + nb_3_out + nb_4_out +
+                    nb_5_out + nb_6_out + nb_7_out +
+                    nb_8_out + nb_9_out + nb_10_out]
+
+# True Hi Lo count
+games[, hilo_true := round(hilo / (ceiling(8 - nb_cards_out/52)))]</code></pre>
+<pre class="r"><code>DT::datatable(games[1:100],
+              fillContainer = TRUE, # Fill the page
+              rownames = FALSE, # Do not display line numbers
+              #filter = &#39;top&#39;, # Filters
+              # extensions = c(&#39;Buttons&#39;,&#39;Scroller&#39;),
+              extensions = c(&#39;Scroller&#39;), # Specify scroller as extension
+              options = list( # Display option
+                dom = &#39;Bft&#39;,
+                # buttons = c(&#39;csv&#39;, &#39;excel&#39;),
+                deferRender = TRUE,
+                scrollY = 300,
+                scroller = TRUE
+              )
+)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","extensions":["Scroller"],"fillContainer":true,"data":[[16,21,15,17,18,20,20,14,20,7,12,8,18,19,15,17,18,14,13,20,21,18,7,15,17,7,17,14,16,12,18,20,21,17,17,16,9,12,5,13,14,18,12,14,6,12,13,16,13,13,7,10,20,9,12,9,20,18,18,15,15,20,14,21,10,20,20,20,13,16,18,11,17,20,20,14,19,8,18,20,13,17,6,16,17,17,9,12,16,17,19,3,12,13,18,20,3,7,11,14],[3,3,3,3,3,3,3,3,4,4,4,4,4,4,6,6,6,6,6,6,3,3,3,3,3,3,3,3,10,10,10,10,10,10,10,10,6,6,6,6,6,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,3,3,3,3,11,11,11,11,4,4,4,4,4,4,4,4,4,4,4,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2],[0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0],[25,null,17,18,24,22,23,22,30,12,22,18,19,29,17,18,28,24,20,25,null,21,15,17,27,17,27,24,26,18,20,21,null,26,27,22,12,21,13,23,24,28,14,22,12,13,16,26,13,21,10,20,30,12,22,20,18,28,23,25,20,24,22,null,20,21,26,30,23,18,23,17,26,20,21,24,26,18,20,21,17,27,16,21,24,27,12,16,17,23,21,12,13,18,20,25,7,11,14,22],[17,17,17,17,17,22,22,22,17,17,17,17,17,17,20,20,20,20,20,20,23,23,23,23,23,23,23,23,18,18,18,18,18,22,22,22,17,17,17,17,17,22,22,22,22,22,22,22,20,20,20,20,20,20,20,20,20,20,20,21,21,21,21,20,20,20,20,21,21,21,21,24,24,24,24,24,24,24,24,24,24,24,20,20,20,20,23,23,23,23,23,23,23,23,23,23,23,23,23,23],[1,1,1,1,2,2,2,2,2,2,2,2,2,3,3,3,4,4,4,4,5,5,5,5,5,5,5,5,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,9,9,9,9,9,9,9,9,10,10,10,11,11,11,11,1,1,1,2,3,3,3,3,4,4,4,4,5,6,6,6,6,7,7,7,7,7,7,7,7,7,8,8,8,8,9,9,9,9,9,9,9],[0,0,0,1,1,1,2,2,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,6,6,6,6,7,7,7,8,8,8,8,8,10,10,10,10,10,13,13,14,14,14,14,14,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,0,0,0,0,1,1,1,2,2,2,2,2,2,2,2,2,3,3,3,4,4,4,4,5,5,5,5,5,6,6,6,6,7,7,7,7,7],[1,1,1,1,1,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,8,8,8,8,10,10,10,10,10,10,11,11,11,11,12,12,12,13,13,13,13,13,13,13,13,13,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,6,7,7,7,7,7,7,7,7,7,7,7,7,8],[0,0,0,0,0,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,4,4,5,5,5,5,5,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,10,10,10,11,1,1,1,1,1,1,1,1,6,6,6,6,6,7,7,7,7,7,8,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,11,12,12],[0,0,0,0,0,1,1,1,3,3,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,12,12,13,13,0,0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,5,5,5,5],[2,2,2,2,2,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,7,7,7,8,8,8,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,1,1,1,1,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,7,7,7,7,7,7,7,7,7,7],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],[0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,6,6,7,7,7,8,8,8,8,8,8,9,9,9,9,9,9,9,10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,6,6,7,7,7,7,7,7,7,7,7,7,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,3,3,3,5,5,5,5,6,6,6,6,6,6,7,7,7,7,7,7,7,7],[3,3,3,3,3,7,7,7,10,11,11,12,13,13,18,18,18,19,20,20,23,23,23,23,23,24,25,26,32,33,33,33,33,37,37,38,38,38,38,38,39,43,44,44,44,44,44,44,48,49,49,49,50,51,51,52,52,52,53,56,57,57,57,4,4,5,5,8,9,10,10,12,12,12,13,13,17,17,18,18,18,18,23,24,24,24,27,27,27,27,27,27,27,27,27,27,27,27,27,27],[1,2,3,3,3,4,5,6,7,8,8,9,9,9,10,10,10,11,12,12,13,14,15,15,15,16,16,17,18,19,19,19,20,21,22,23,24,24,25,25,26,27,28,28,29,29,29,29,30,30,31,31,31,32,32,33,33,33,34,35,36,36,37,38,39,39,40,41,42,43,43,44,44,45,45,46,47,48,48,48,49,49,50,50,51,52,53,53,53,53,54,55,55,55,55,55,56,56,56,56],[true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,false,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],["impossible","stand","hit","double","stand","stand","stand","stand","stand","impossible","impossible","double","stand","stand","impossible","impossible","impossible","impossible","hit","stand","stand","stand","stand","stand","stand","stand","stand","stand","impossible","hit","double","stand","stand","stand","stand","stand","hit","double","impossible","impossible","impossible","stand","stand","stand","stand","stand","stand","stand","hit","double","hit","hit","stand","impossible","impossible","hit","stand","impossible","impossible","impossible","impossible","impossible","impossible","stand","hit","double","stand","impossible","impossible","impossible","impossible","stand","stand","stand","stand","stand","stand","stand","stand","stand","stand","stand","hit","double","impossible","impossible","stand","stand","stand","stand","stand","stand","stand","stand","stand","stand","stand","stand","stand","stand"],[-1,1,1,1,1,1,1,1,1,-1,-1,1,1,1,-1,-1,-1,-1,0,0,1,1,1,1,1,1,1,1,-1,1,1,1,1,1,1,1,1,1,-1,-1,-1,1,1,1,1,1,1,1,1,1,0,0,0,-1,-1,0,0,-1,-1,-1,-1,-1,-1,1,1,1,0,-1,-1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[-1,-1,-1,0,-1,-1,0,1,4,3,4,3,2,1,0,1,0,-1,-2,-2,-3,-3,-2,-2,-1,-2,-3,-4,-8,-9,-8,-7,-8,-9,-9,-10,-3,-2,-2,-2,-3,-1,-2,-1,-1,0,-1,0,-2,-3,-3,-2,-3,-4,-3,-4,-5,-5,-6,-5,-6,-5,-4,-2,-2,-3,-4,-4,-5,-6,-5,-2,-1,-1,-2,-3,-4,-4,-5,-4,-5,-4,-7,-8,-7,-7,-5,-4,-3,-4,-3,-2,-2,-3,-2,-1,0,1,2,3],[8,9,9,10,11,21,22,23,33,34,35,36,37,38,48,49,50,51,52,53,63,63,64,65,66,67,68,69,79,80,81,82,83,92,93,94,104,105,106,107,108,119,120,121,122,123,124,125,135,136,137,138,139,140,141,142,143,144,145,154,155,156,157,8,8,9,10,20,21,22,23,34,35,36,37,38,48,49,50,51,52,53,64,65,66,67,76,77,78,79,80,81,82,83,84,85,86,87,88,89],[-0,-0,-0,0,-0,-0,0,0,0,0,0,0,0,0,0,0,0,-0,-0,-0,-0,-0,-0,-0,-0,-0,-0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-0,-0,-0,-0,-0,-0,-0,-0,-0,0,-0,0,-0,-0,-0,-0,-0,-1,-0,-1,-1,-1,-1,-1,-1,-1,-1,-0,-0,-0,-0,-0,-1,-1,-1,-0,-0,-0,-0,-0,-0,-0,-1,-0,-1,-1,-1,-1,-1,-1,-1,-1,-0,-1,-0,-0,-0,-0,-0,-0,0,0,0,0]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>score<\/th>\n      <th>score_dealer<\/th>\n      <th>nbas<\/th>\n      <th>score_if_hit<\/th>\n      <th>score_fin_dealer<\/th>\n      <th>nb_as_out<\/th>\n      <th>nb_2_out<\/th>\n      <th>nb_3_out<\/th>\n      <th>nb_4_out<\/th>\n      <th>nb_5_out<\/th>\n      <th>nb_6_out<\/th>\n      <th>nb_7_out<\/th>\n      <th>nb_8_out<\/th>\n      <th>nb_9_out<\/th>\n      <th>nb_10_out<\/th>\n      <th>game_id<\/th>\n      <th>hard<\/th>\n      <th>decision<\/th>\n      <th>outcome<\/th>\n      <th>hilo<\/th>\n      <th>nb_cards_out<\/th>\n      <th>hilo_true<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bft","deferRender":true,"scrollY":300,"scroller":true,"columnDefs":[{"className":"dt-right","targets":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,18,19,20,21]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="ad-hoc-analysis" class="section level2">
+<h2>Ad hoc analysis</h2>
+<div id="maximal-expected-earnings" class="section level3">
+<h3>Maximal expected earnings</h3>
+<pre class="r"><code># Aggregation by game
+
+best_possible_outcome = games[, .(outcome = max(outcome)), by = game_id]
+
+mean_best_outcome &lt;- mean(best_possible_outcome$outcome)
+
+repartitions &lt;- best_possible_outcome[, .(rep = .N / nrow(best_possible_outcome)), by = outcome]</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>Expected Earning</th>
+<th>Percent of wins</th>
+<th>Percent of draws</th>
+<th>Percent of loses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.154% / game</td>
+<td>52.5%</td>
+<td>10.4%</td>
+<td>37.1%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="minimal-expected-earnings" class="section level3">
+<h3>Minimal expected earnings</h3>
+<pre class="r"><code>res = data.table()
+
+for(i in 2:22){
+  # Get the last score for which the criteria is met
+  games[, strat := last(score[score &lt; i]), by = game_id]
+  
+  # In case the previous condition is not met
+  games[is.na(strat), strat := score]
+  
+  # Aggregation by game to get the result
+  b &lt;- games[, lapply(.SD, function(x) first(x[score == strat])), .SDcols = c(&quot;score&quot;, &quot;score_if_hit&quot;, &quot;score_fin_dealer&quot;)  , by = game_id]
+  
+  # Case when we stop for a blackjack
+  b[is.na(score_if_hit), score_if_hit := score]
+  
+  # Computation if win or lose
+  b[, result := ifelse(score_if_hit &gt; 21 | (score_fin_dealer &gt; score_if_hit &amp; score_fin_dealer &lt; 22), &quot;lose&quot;, ifelse(score_if_hit == score_fin_dealer, &quot;draw&quot;, &quot;win&quot;))]
+  
+  # Bind tables
+  temp &lt;- table(b$result) / nrow(b)
+  temp$lim_score = i - 1
+  res &lt;- rbind(res, temp)
+}</code></pre>
+<div id="htmlwidget-2" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"data":[{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],"y":[0.931226757904171,0.931226757904171,0.931226757904171,0.931226757904171,0.931226757904171,0.931306930524849,0.932165467793968,0.935722795996254,0.944415419478018,0.962742031053883,0.989764451778558,0.996659828101406,1,0.997938873420706,0.988630354309889,0.969507856916827,0.904932262099695,0.744083685349542,0.462559386143198,0,0],"text":["exp: -0.3130207","exp: -0.3130207","exp: -0.3130207","exp: -0.3130207","exp: -0.3130207","exp: -0.3129931","exp: -0.3126971","exp: -0.3114706","exp: -0.3084736","exp: -0.3021552","exp: -0.2928387","exp: -0.2904614","exp: -0.2893098","exp: -0.2900204","exp: -0.2932297","exp: -0.2998225","exp: -0.3220862","exp: -0.3775419","exp: -0.4746028","exp: -0.6340791","exp: -0.6340791"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(255,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999],"base":[0.946002737013829,0.946002737013829,0.946002737013829,0.946002737013829,0.946002737013829,0.945975095956571,0.945765133753429,0.945349236521049,0.944634962312974,0.943440905250117,0.94207111696231,0.940180724920592,0.937896035942893,0.935084336343707,0.931735192081551,0.927882284974541,0.935110329920731,0.944735641660601,0.95574392153015,0.974925900000146,0.974925900000146],"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],"y":[0.0539972629861715,0.0539972629861715,0.0539972629861715,0.0539972629861715,0.0539972629861715,0.0540249040434291,0.0542348662465714,0.054650763478951,0.0553650376870256,0.0565590947498833,0.0579288830376898,0.0598192750794084,0.0621039640571068,0.0649156636562932,0.068264807918449,0.0721177150254591,0.0648896700792694,0.0552643583393986,0.0442560784698496,0.0250740999998535,0.0250740999998535],"text":["value: 0.05399726","value: 0.05399726","value: 0.05399726","value: 0.05399726","value: 0.05399726","value: 0.05402490","value: 0.05423487","value: 0.05465076","value: 0.05536504","value: 0.05655909","value: 0.05792888","value: 0.05981928","value: 0.06210396","value: 0.06491566","value: 0.06826481","value: 0.07211772","value: 0.06488967","value: 0.05526436","value: 0.04425608","value: 0.02507410","value: 0.02507410"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(68,1,84,0.5)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"draw","legendgroup":"draw","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999],"base":[0.316491020866619,0.316491020866619,0.316491020866619,0.316491020866619,0.316491020866619,0.316491020866619,0.316534038406059,0.316939318543598,0.318080656238971,0.320642854109401,0.324616210326845,0.324859671294744,0.324293121147642,0.322531964777605,0.31925274689871,0.314029868450534,0.306512050036537,0.283596881356528,0.240570555354604,0.170423409742246,0.170423409742246],"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],"y":[0.62951171614721,0.62951171614721,0.62951171614721,0.62951171614721,0.62951171614721,0.629484075089952,0.629231095347369,0.628409917977451,0.626554306074003,0.622798051140715,0.617454906635465,0.615321053625848,0.613602914795251,0.612552371566102,0.612482445182841,0.613852416524007,0.628598279884193,0.661138760304073,0.715173366175547,0.8045024902579,0.8045024902579],"text":["value: 0.62951172","value: 0.62951172","value: 0.62951172","value: 0.62951172","value: 0.62951172","value: 0.62948408","value: 0.62923110","value: 0.62840992","value: 0.62655431","value: 0.62279805","value: 0.61745491","value: 0.61532105","value: 0.61360291","value: 0.61255237","value: 0.61248245","value: 0.61385242","value: 0.62859828","value: 0.66113876","value: 0.71517337","value: 0.80450249","value: 0.80450249"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(33,144,140,0.5)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"lose","legendgroup":"lose","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999],"base":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],"y":[0.316491020866619,0.316491020866619,0.316491020866619,0.316491020866619,0.316491020866619,0.316491020866619,0.316534038406059,0.316939318543598,0.318080656238971,0.320642854109401,0.324616210326845,0.324859671294744,0.324293121147642,0.322531964777605,0.31925274689871,0.314029868450534,0.306512050036537,0.283596881356528,0.240570555354604,0.170423409742246,0.170423409742246],"text":["value: 0.31649102","value: 0.31649102","value: 0.31649102","value: 0.31649102","value: 0.31649102","value: 0.31649102","value: 0.31653404","value: 0.31693932","value: 0.31808066","value: 0.32064285","value: 0.32461621","value: 0.32485967","value: 0.32429312","value: 0.32253196","value: 0.31925275","value: 0.31402987","value: 0.30651205","value: 0.28359688","value: 0.24057056","value: 0.17042341","value: 0.17042341"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(253,231,37,0.5)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"win","legendgroup":"win","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.2283105022831,"r":7.30593607305936,"b":40.1826484018265,"l":25.5707762557078},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.495,22.495],"tickmode":"array","ticktext":["0","5","10","15","20"],"tickvals":[5.55111512312578e-017,5,10,15,20],"categoryorder":"array","categoryarray":["0","5","10","15","20"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Limit for hitting","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.05,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"Expected earning and repartition","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"y":0.96751968503937},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"37945960630d":{"x":{},"y":{},"label":{},"type":"scatter"},"37947b4b4f7f":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"37945960630d","visdat":{"37945960630d":["function (y) ","x"],"37947b4b4f7f":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-99074891-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+ 
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" ===  false );
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
+
+  
+  
+  
+  
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+  
+</html>

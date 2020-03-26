@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Analytics on Stats, Actuarial Science &amp; Philosophy</title>
+    <link>/tags/data-analytics/</link>
+    <description>Recent content in Data Analytics on Stats, Actuarial Science &amp; Philosophy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 02 Sep 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/data-analytics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to win a blackjack game?</title>
+      <link>/post/blackjack/</link>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/blackjack/</guid>
+      <description>TBD</description>
+    </item>
+    
+  </channel>
+</rss>
